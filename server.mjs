@@ -79,7 +79,12 @@ bot.start(async (ctx) => {
 });
 
 bot.action("register_user", async (ctx) => {
-  await ctx.answerCbQuery();
+  try {
+    await ctx.answerCbQuery(); 
+  } catch (err) {
+    if (!err.description.includes("query is too old")) throw err;
+  }
+
   await ctx.editMessageText(
     "Do you consent to share your Telegram info for registration?",
     Markup.inlineKeyboard([
@@ -90,6 +95,7 @@ bot.action("register_user", async (ctx) => {
     ])
   );
 });
+
 
 bot.action("send_data", async (ctx) => {
   await ctx.answerCbQuery();
