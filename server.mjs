@@ -4,15 +4,20 @@ import pkg from "pg";
 
 dotenv.config();
 
-const { Client } = pkg;
+const { Pool } = pkg;
 
-const db = new Client({
-  host: process.env.DB_HOST,
-  port: Number(process.env.DB_PORT),
-  user: process.env.DB_USER,
-  password: process.env.DB_PASS,
-  database: process.env.DB_NAME,
+// const db = new Client({
+//   host: process.env.DB_HOST,
+//   port: Number(process.env.DB_PORT),
+//   user: process.env.DB_USER,
+//   password: process.env.DB_PASS,
+//   database: process.env.DB_NAME,
+// });
+const db = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: { rejectUnauthorized: false },
 });
+
 
 await db.connect();
 
