@@ -1,18 +1,20 @@
 import dotenv from "dotenv";
 import { Telegraf, Markup } from "telegraf";
 import pkg from "pg";
+import express from "express"
 
 dotenv.config();
+const app = express()
+const PORT = process.env.PORT || 3000
+
+app.get("/", (req, res) => {
+  res.send("Bot is running")
+})
+
+app.listen(PORT, ()=> console.log("Server is running on port ${PORT}"))
 
 const { Pool } = pkg;
 
-// const db = new Client({
-//   host: process.env.DB_HOST,
-//   port: Number(process.env.DB_PORT),
-//   user: process.env.DB_USER,
-//   password: process.env.DB_PASS,
-//   database: process.env.DB_NAME,
-// });
 const db = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: { rejectUnauthorized: false },
@@ -177,6 +179,5 @@ bot.catch((err, ctx) => {
 
 bot.launch();
 console.log("Bot is running...");
-
 process.once("SIGINT", () => bot.stop("SIGINT"));
 process.once("SIGTERM", () => bot.stop("SIGTERM"));
