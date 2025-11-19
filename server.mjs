@@ -1,17 +1,17 @@
 import dotenv from "dotenv";
 import { Telegraf, Markup } from "telegraf";
 import pkg from "pg";
-import express from "express"
+// import express from "express"
 
 dotenv.config();
-const app = express()
-const PORT = process.env.PORT || 3000
+// const app = express()
+// const PORT = process.env.PORT || 3000
 
 app.get("/", (req, res) => {
   res.send("Bot is running")
 })
 
-app.listen(PORT, ()=> console.log("Server is running on port ${PORT}"))
+// app.listen(PORT, ()=> console.log("Server is running on port ${PORT}"))
 
 const { Pool } = pkg;
 
